@@ -1,0 +1,9 @@
+1. raspberrypi.zip (Blender Version):
+	* Its of basic version, looks like its of version 3.
+	* https://sketchfab.com/3d-models/raspberry-pi-c14fe11325574bd9a69a4280c3b8b133
+
+2. raspberry-pi-4-model-b-1.snapshot.3.zip:
+	* Its of solidworks type.
+	* https://grabcad.com/library/raspberry-pi-4-model-b-1
+3. Raspberry Pi 4 Model B.STEP:
+	* Its one of the individual file of [2].

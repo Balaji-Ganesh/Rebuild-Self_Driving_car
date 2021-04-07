@@ -1,0 +1,4 @@
+raspberry-pi-cam-v2.1.zip (Blender Version)- https://sketchfab.com/3d-models/raspberry-pi-cam-v21-42225e7f8e7a4cbab6e86b4e912efd5a
+
+2. Raspberry_Pi_camera_mount_for_Prusa_i3.zip:
+	https://www.thingiverse.com/search?q=Raspberry+pi+camera+mount+for+prusa+i3&type=things&sort=relevant
