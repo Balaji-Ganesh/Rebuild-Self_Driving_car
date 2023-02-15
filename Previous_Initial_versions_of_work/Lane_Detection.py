@@ -8,6 +8,8 @@ width, height = (480, 240)      # Dimensions of the window, (Currently adjusted 
 window_dim = (width, height)
 curvature_stack_avg_limit = 10  # What should be the length of the stack to store the elements..!! used in #STEP-4, it makes a impact on deciding the center correctly..(Please make sure that, this value is adjusted properly..else center cannot be detected properly.)
 curvature_stack_list = []       # A list implemented to be like stack(FIFO), in which the elements(raw_curvature_val) are PUSHed upto the value set in "curvature_stack_avg_limit"(i.e., size of stack is this). The element which is PUSHed earlier is POPped out first(i.,e earlier raw_curvature_value is deleted, that means our stack will hold a set of previous finite values (as set in curvatur_stack_avg_limit) from current.)  Avg of this stack values is considered to be the approximated center.
+first_run_setup_done = False
+initial_values = [73, 107, 20, 240]   # Previously tuned warp points for video: "vid1.mp4"
 #############################################################################################################################################
 
 
@@ -32,7 +34,7 @@ def get_lane_curve(image, debug_mode=False):
 
     NOTE:
     ----
-    #STAGE-1 Can be replaced by some of the edge detection methods like canny edge detector (core functioning explained on Quora)or
+    #STAGE-1 Can be replaced by some edge detection methods like canny edge detector (core functioning explained on Quora)or
     some other detectors like explained in the video guide: https://youtu.be/LECg-Gv5xjo
         (Actually got referenced while learning the opencv in the programming knowledge channel
         at the time of making the self-driving-car project for the college)
@@ -42,13 +44,19 @@ def get_lane_curve(image, debug_mode=False):
     :return: Not yet decided
     """
     """STAGE-1: Filtering the image (Manual Threshold adjustment or Automatic Edge detection)"""
-    threshImg = utils.threshold_filter(image=image, debug_mode=False)                      # Filter the lane from the environment, so that we can focus only on the lane
+    threshImg = utils.threshold_filter(image=image, debug_mode=debug_mode)                      # Filter the lane from the environment, so that we can focus only on the lane
 
     """STAGE-2: Warping the image(i.e., RoI) [Bird's Eye view]"""
-    height, width = image.shape[:-1]                                                            # Get the width and height of the image
-    initial_values = [73, 107, 20, 240]                                                         # Previously tuned warp points.
-    utils.initialize_warping_trackbars(initial_values=initial_values,
-                                       width=window_dim[0], height=window_dim[1])                 # Initialize the Trackbars for adjusting warp area(RoI).
+    height, width = image.shape[:-1]                                                        # Get the width and height of the image
+
+    # Setup that's required only for the first time.. [in multiple calls for the function, not in runs]
+    # for setup of "trackbars"
+    global first_run_setup_done
+    if not first_run_setup_done:
+        utils.initialize_warping_trackbars(initial_values=initial_values,
+                                           width=window_dim[0], height=window_dim[1])                 # Initialize the Trackbars for adjusting warp area(RoI).
+        first_run_setup_done = True     # to avoid execute this block in next call.
+
     warp_points = utils.get_warping_trackbars_values(width=window_dim[0], height=window_dim[1])   # Get the warping co-ordinates after adjustment of the warping trackbars.
     warp_img = utils.warpImage(image=threshImg.copy(), warp_points=warp_points, width=width, height=height)  # Get the warp image based on the warp_co-ordinates/
 
@@ -154,4 +162,4 @@ def start_detecting_lanes(debug_mode=False):
 
 
 if __name__ == '__main__':
-    start_detecting_lanes(debug_mode=True)
+    start_detecting_lanes(debug_mode=False)
