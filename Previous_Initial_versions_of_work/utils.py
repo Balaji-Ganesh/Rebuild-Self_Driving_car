@@ -39,6 +39,9 @@ def threshold_filter(image, debug_mode=False):
     if debug_mode:
         initialize_threshold_trackbars()
         lowerThreshold, upperThreshold = get_thresh_values(imgHSV)
+        print("HSV Threshold values: (lower, upper): " + str((lowerThreshold, upperThreshold)))
+        # warp_points = get_warping_trackbars_values()
+        # print("Warping values (width_top, height_top), (width_bottom, height_bottom): "+str(warp_points[0::2]))
     else:
         lowerThreshold = np.array([66, 0, 0])  # Lower threshold, ignore the pixels below than these pixel values (i.e., convert to black pixels)
         upperThreshold = np.array([221, 238, 236])  # Upper threshold, ignore the pixels above than these pixel values (i.e., convert to black pixels)
