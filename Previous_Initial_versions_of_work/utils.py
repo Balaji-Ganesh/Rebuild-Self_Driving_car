@@ -114,10 +114,17 @@ def initialize_warping_trackbars(initial_values, width=480, height=240):
     This function is designed to get called from the function "get_lane_curve" from the file of "LineDetection.py"
     """
     cv2.namedWindow("Warping Adjusters")
-    cv2.createTrackbar("Width Top", "Warping Adjusters", initial_values[0], width // 2, dummy)
-    cv2.createTrackbar("Height Top", "Warping Adjusters", initial_values[1], height, dummy)
-    cv2.createTrackbar("Width Bottom", "Warping Adjusters", initial_values[2], height, dummy)
-    cv2.createTrackbar("Height Bottom", "Warping Adjusters", initial_values[3], width // 2, dummy)
+    cv2.createTrackbar("Width Top", "Warping Adjusters", 0, width // 2, dummy)
+    cv2.createTrackbar("Height Top", "Warping Adjusters", 0, height, dummy)
+    cv2.createTrackbar("Width Bottom", "Warping Adjusters", 0, height, dummy)
+    cv2.createTrackbar("Height Bottom", "Warping Adjusters", 0, width // 2, dummy)
+
+    # Preset the values if configured already..
+    if len(initial_values) == 4:
+        cv2.setTrackbarPos("Width Top", "Warping Adjusters", initial_values[0])
+        cv2.setTrackbarPos("Height Top", "Warping Adjusters", initial_values[1])
+        cv2.setTrackbarPos("Width Bottom", "Warping Adjusters", initial_values[2])
+        cv2.setTrackbarPos("Height Bottom", "Warping Adjusters", initial_values[3])
 
 
 def get_warping_trackbars_values(width=480, height=240):
@@ -137,6 +144,8 @@ def get_warping_trackbars_values(width=480, height=240):
     height_top = cv2.getTrackbarPos("Height Top", "Warping Adjusters")
     width_bottom = cv2.getTrackbarPos("Width Bottom", "Warping Adjusters")
     height_bottom = cv2.getTrackbarPos("Height Bottom", "Warping Adjusters")
+
+    print("width_top adjusted value: "+str(width_top))
 
     # Make co-ordinate points, so that we can use them to plot directly on the image
     warp_points = np.float32([(width_top, height_top), (width - width_top, height_top),
@@ -383,7 +392,7 @@ def draw_curve_scale(img, curve_measure=0):
     img = draw_rounded_rectangle(img=img, top_left=(x0 - width // 2 + 30, y0 - 30), bottom_right=(x0 + width // 2 - 30, y0 + 30), radius=10, thickness=1, fill_color=(0, 0, 255))
 
     """ Draw the curve measure as a line (!! curve_measure is just a value that tells the value on scale from origin..)"""
-    curve_measure = curve_measure * 10
+    # curve_measure = curve_measure * 10
     # Vertical line denoting the curve_measure..
     cv2.line(img=img, pt1=(x0 + curve_measure, y0 - 30), pt2=(x0 + curve_measure, y0 + 25), color=(0, 255, 0), thickness=3)
     # Horizontal line from the origin to the curve_measure...
