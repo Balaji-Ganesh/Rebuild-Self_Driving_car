@@ -28,11 +28,11 @@ Up-gradation to the work done earlier at college time and lock-down time..
 - The final UI has improved over the original _(as in [1]-References)_. 
   - Added the navigation direction displayer on the top-center.
   - Designed a scale with a magnifier showing the `curve_measure` and moving on the scale as it updates in each frame.
-  - It looks like.. ![prediction_on_video_source_final_result.png](./Previous_Initial_versions_of_work/screenshots_of_working/prediction_on_video_source_final_result.png)
+  - It looks like.. ![prediction_on_video_source_final_result.png](Lane_Detection/screenshots_of_working/prediction_on_video_source_final_result.png)
 
 ## Additions made ..
 - A UI has made which displays the intermediate processing, right from the original to the final -- in 9 phases.
   - This is by default hidden and can be activated by `debug_mode=True` in `Lane_Detection.py` at the driver (`__main__`)
   - Each phase is labelled at the top-left for clear indication of phase.
-  - It looks like .. ![steps_involved_display_in_debug_mode.png](./Previous_Initial_versions_of_work/screenshots_of_working/steps_involved_display_in_debug_mode.png)
+  - It looks like .. ![steps_involved_display_in_debug_mode.png](Lane_Detection/screenshots_of_working/steps_involved_display_in_debug_mode.png)
 
