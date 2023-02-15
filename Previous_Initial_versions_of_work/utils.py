@@ -203,7 +203,7 @@ def getHistogram(img, min_percent=0.1, show_histogram=False, region=1):
         img_histogram = np.zeros((img.shape[0], img.shape[1], 3), np.uint8)
         for index, intensity in enumerate(histogramValues):             # For every frame of the video, plot the histogram
             cv2.line(img=img_histogram, pt1=(index, img.shape[0]),      # Once carefully observe the pt1... we can notice that X axis value(abscissa) moves towards right, and Y-value(ordinate) stays constant.
-                     pt2=(index, img.shape[0]-intensity//255//region),  # This one too (i.e., pt2), here too 'x', moves as like above, but here for every 'x' 'y' also varies. This 'y' denotes the intensity (i.e., frequency if we talk in terminplogy of histograms) which """varies for every index(column-wise)""", """-> Most important P2N.
+                     pt2=(index, int(img.shape[0]-intensity//255//region)),  # This one too (i.e., pt2), here too 'x', moves as like above, but here for every 'x' 'y' also varies. This 'y' denotes the intensity (i.e., frequency if we talk in terminplogy of histograms) which """varies for every index(column-wise)""", """-> Most important P2N.
                      color=(255, 0, 255), thickness=1)
             # cv2.circle(img_histogram, (basePoint, img.shape[0]), 20, (0, 255, 255), cv2.FILLED)
             # cv2.imshow("Histogram", img_histogram)
