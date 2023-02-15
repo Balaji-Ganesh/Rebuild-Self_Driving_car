@@ -131,7 +131,7 @@ def start_detecting_lanes(debug_mode=False):
     :return: nothing.
     """
 
-    capture = cv2.VideoCapture("vid1.mp4")      # Get the camera capture instance..
+    capture = cv2.VideoCapture("road_car_view.mp4")      # Get the camera capture instance..
     frame_counter = 0
     while True:
         frame_counter += 1
@@ -154,5 +154,4 @@ def start_detecting_lanes(debug_mode=False):
 
 
 if __name__ == '__main__':
-    start_detecting_lanes(debug_mode=False)
-
+    start_detecting_lanes(debug_mode=True)
