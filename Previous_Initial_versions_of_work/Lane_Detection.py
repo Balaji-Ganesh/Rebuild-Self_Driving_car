@@ -158,6 +158,9 @@ def start_detecting_lanes(debug_mode=False):
         get_lane_curve(image=frame, debug_mode=debug_mode)
 
         if cv2.waitKey(1) == 27:
+            if debug_mode:
+                warp_points = utils.get_warping_trackbars_values()
+                print("Warping values (width_top, height_top), (width_bottom, height_bottom): "+str(warp_points[0::2]))
             break
 
 
