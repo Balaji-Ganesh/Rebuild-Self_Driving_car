@@ -36,7 +36,7 @@ def balanceTrainingData(data, visualize_process=False):
     maxSamplesPerbin = 1000
     # to know, how much data does each class contain... using
     histogram_values, bins = np.histogram(data['steeringAngle'], numBins)
-    print("balancing data \n", histogram_values, " -- ", bins)
+    # print("balancing data \n", histogram_values, " -- ", bins)
     """
         till here..
         `bins` - resulted values in range [-1, +1] w/o ""0"" 
@@ -109,3 +109,28 @@ def balanceTrainingData(data, visualize_process=False):
         """
     # Now return the final Balanced and ONLY necessary data...
     return data
+
+
+def loadData(path, data):
+    """
+    - separate the data (which is currently in pandas format) into two lists
+         of image_paths(center img) and steering angle.
+    """
+    imgPaths = [
+    ]           # list to store all the images path (with relative path of this python file)
+    # list to store corresponding steering angles of each image.
+    steeringAngles = []
+    for idx in range(len(data)):
+        # to access each tuple's value based on index. (#values in each tuple = #cols)
+        indexedData = data.iloc[idx]
+        # print(indexedData)
+        imgPaths.append(os.path.join(
+            path, 'IMG', indexedData['centerImg']))
+        steeringAngles.append(float(indexedData['steeringAngle']))
+
+    # cvt to numpy arrays
+    imgPaths = np.asarray(imgPaths)
+    steeringAngles = np.asarray(steeringAngles)
+
+    # return the final values..
+    return imgPaths, steeringAngles
