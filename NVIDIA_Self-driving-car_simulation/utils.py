@@ -23,11 +23,4 @@ def loadTrainingSimulationData(path):
     # Give an information to the user..
     print("Total images(center) loaded: "+str(data.shape[0]))
     # return the final data
-
-
-"""
-Make the images path as "relative"
-    create a function
-    use `apply`
-    make a check.cc 
-"""
+    return data

@@ -1,0 +1,4 @@
+# Ignore training data to upload
+simulation_data     
+*.idea
+*.pyc
