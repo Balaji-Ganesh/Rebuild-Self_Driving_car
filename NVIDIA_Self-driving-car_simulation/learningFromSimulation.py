@@ -23,3 +23,6 @@ print("Test set size: ", len(xTest))
 # STEP-5: Data Augmentation - helps in generalizing the model
 ## Need: Even we have lots of data, it falls shortage
 ## with these simple techniques, we can create more data from the data we had.
+
+# STEP-6: Pre-processing
+## Neeed:

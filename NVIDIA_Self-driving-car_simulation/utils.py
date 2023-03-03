@@ -177,6 +177,22 @@ def augmentImage(img_path, steeringAngle):
     return img, steeringAngle
 
 
-img, angle = augmentImage('test.jpg', 0.5)
+def preprocess_img(image):
+    # All these below steps, are as employed by NVIDIA.
+    # CROP :  have only the road part, not any other..
+    image = image[60:135, :, :]
+    # CHANGE OF COLOR SPACE: this better helps in recognizing the road lanes.
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)  # NVIDIA used this space
+    # BLURRING
+    image = cv2.GaussianBlur(image, (3, 3), 0)
+    # RESIZING
+    image = cv2.resize(image, (200, 66))    # <<-- NVIDIA used this size
+    # NORMALIZATION: of values from [0, 255] -to-> [0, 1]
+    image = image/255
+
+    return image
+
+
+img = preprocess_img(mpimg.imread('test.jpg'))
 plt.imshow(img)
 plt.show()
