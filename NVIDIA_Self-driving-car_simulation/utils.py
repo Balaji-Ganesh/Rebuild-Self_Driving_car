@@ -230,7 +230,7 @@ def batchGenerator(imagesPath, steeringAngles, batch_size, is_for_training=True)
             img = preprocess_img(img)   # Perform preprocessing
             # Add to the batch.
             imagesBatch.append(img)
-            steeringAnglesBatch(steeringAngle)
+            steeringAnglesBatch.append(steeringAngle)
 
         # cvt to numpy arrays
         # Using `yield`, as dealing with large data

@@ -38,3 +38,8 @@ print("Test set size: ", len(xTest))
 # Going to use the same model used and tested by NVIDIA.
 model = utils.modelCreator()
 model.summary()
+
+# STEP-9: Train the model..
+model.fit(utils.batchGenerator(xTrain, yTrain, batch_size=10,
+          is_for_training=True), steps_per_epoch=20, epochs=2,
+          validation_data=utils.batchGenerator(xTest, yTest, 10, is_for_training=False), validation_steps=20)

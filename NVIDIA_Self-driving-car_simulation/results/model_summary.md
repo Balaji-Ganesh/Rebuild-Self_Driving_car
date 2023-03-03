@@ -38,3 +38,12 @@ Trainable params: 252,219
 Non-trainable params: 0
 _________________________________________________________________
 ```
+## Training
+with `steps_per_epoch`=#batches=20 and 2 epochs
+results:
+```
+Epoch 1/2
+20/20 [==============================] - 12s 521ms/step - loss: 0.1813 - val_loss: 0.1843
+Epoch 2/2
+20/20 [==============================] - 9s 458ms/step - loss: 0.1359 - val_loss: 0.1573
+```
