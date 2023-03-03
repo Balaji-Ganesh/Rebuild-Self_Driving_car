@@ -47,3 +47,13 @@ Epoch 1/2
 Epoch 2/2
 20/20 [==============================] - 9s 458ms/step - loss: 0.1359 - val_loss: 0.1573
 ```
+- after some time -- same configuration
+```
+Epoch 1/2
+20/20 [==============================] - 8s 380ms/step - loss: 0.1714 - val_loss: 0.1291
+Epoch 2/2
+20/20 [==============================] - 6s 325ms/step - loss: 0.1449 - val_loss: 0.1251
+Model saved successfully
+```
+and its loss plot..
+![Loss plot](loss_plot_of_training_at_2023-03-03_14hrs19mins.png)
