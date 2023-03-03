@@ -42,12 +42,12 @@ model = utils.modelCreator()
 model.summary()
 
 # STEP-9: Train the model..
-history = model.fit(utils.batchGenerator(xTrain, yTrain, batch_size=10, is_for_training=True), steps_per_epoch=20,
-                    epochs=2, validation_data=utils.batchGenerator(xTest, yTest, 10, is_for_training=False), validation_steps=20)
+history = model.fit(utils.batchGenerator(xTrain, yTrain, batch_size=100, is_for_training=True), steps_per_epoch=300,
+                    epochs=10, validation_data=utils.batchGenerator(xTest, yTest, 100, is_for_training=False), validation_steps=200)
 
 # STEP-10: Saving the model and plotting training progress
 # save the architecture and weights learned of the model
-model.save('model_at_'+datetime.datetime.now().strftime("%Y-%m-%d_%Hhrs%Mmins")+'.h5')
+model.save('results/model_at_'+datetime.datetime.now().strftime("%Y-%m-%d_%Hhrs%Mmins")+'.h5')
 print("Model saved successfully")
 
 plt.plot(history.history['loss'])
