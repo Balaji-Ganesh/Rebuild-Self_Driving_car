@@ -7,6 +7,7 @@ from sklearn.utils import shuffle
 # ~ Why not cv2? it reads img in BGR, this in RGB. that's it.
 import matplotlib.image as mpimg
 from imgaug import augmenters as iaa    # for image augmentations
+import cv2                              # used in image aug. for flipping.
 
 """ Utility functions"""
 
@@ -160,6 +161,11 @@ def augmentImage(img_path, steeringAngle):
     # CHANGING BRIGHTNESS -- [0, +1] -> [dark, bright]
     brightness_changer = iaa.Multiply((0.5, 1.2))
     brightness_chng_img = brightness_changer.augment_image(img)
+
+    # FLIPPING - here need ONLY horizontal flip
+    flipped_img = cv2.flip(img, 1)
+    # as direction gets flipped, flip the signs to reflect that.
+    steeringAngle = -steeringAngle
 
     plt.imshow(flipped_img)
     plt.show()
