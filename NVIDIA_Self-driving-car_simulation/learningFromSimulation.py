@@ -26,3 +26,5 @@ print("Test set size: ", len(xTest))
 
 # STEP-6: Pre-processing
 ## Neeed:
+
+# STEP-7: Batch Generator

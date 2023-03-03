@@ -9,6 +9,8 @@ from sklearn.utils import shuffle
 import matplotlib.image as mpimg
 from imgaug import augmenters as iaa    # for image augmentations
 import cv2                              # used in image aug. for flipping.
+# used for batch generator, to pick random images.
+import random
 
 """ Utility functions"""
 
@@ -191,6 +193,43 @@ def preprocess_img(image):
     image = image/255
 
     return image
+
+
+def batchGenerator(imagesPath, steeringAngles, batch_size, is_for_training=True):
+    """
+    Need: ~ Helps in generalizing and freedom to pick and apply operations for training.
+    working:
+        say a `batch_size`=150, then it picks 150 random images (along with its steering angle) as a batch.
+        On this batch, first data augmentation and then preprocessing is done.
+    A note:
+        - Will be using this batch generator for both training and validation
+        - But for testing, augmentation is not required.
+    """
+    while True:  # <<-- why need infinite loop..?
+        # lists to store the batch of images and angles
+        imagesBatch = []
+        steeringAnglesBatch = []
+
+        # Generate the batch of required size..
+        for i in range(batch_size):
+            # pick a random index.
+            rand_idx = random.randint(0, len(imagesPath)-1)
+            if is_for_training:  # If for training...
+                img, steeringAngle = augmentImage(
+                    imagesPath[rand_idx], steeringAngles[rand_idx])   # Perform augmentation
+            # if for validation.. load the image and angle (as for training, its loaded in `augmentImage()`)
+            else:
+                img = mpimg.imread(imagesPath[rand_idx])
+                steeringAngle = steeringAngles[rand_idx]
+
+            img = preprocess_img(img)   # Perform preprocessing
+            # Add to the batch.
+            imagesBatch.append(img)
+            steeringAnglesBatch(steeringAngle)
+
+        # cvt to numpy arrays
+        # Using `yield`, as dealing with large data
+        yield (np.asarray(imagesBatch), np.asarray(steeringAnglesBatch))
 
 
 img = preprocess_img(mpimg.imread('test.jpg'))
