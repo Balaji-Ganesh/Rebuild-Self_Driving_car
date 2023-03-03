@@ -156,7 +156,12 @@ def augmentImage(img_path, steeringAngle):
     # ZOOMING
     zoomer = iaa.Affine(scale=(1, 1.5))
     zoomed_img = zoomer.augment_image(img)
-    plt.imshow(zoomed_img)
+
+    # CHANGING BRIGHTNESS -- [0, +1] -> [dark, bright]
+    brightness_changer = iaa.Multiply((0.5, 1.2))
+    brightness_chng_img = brightness_changer.augment_image(img)
+
+    plt.imshow(flipped_img)
     plt.show()
 
 
