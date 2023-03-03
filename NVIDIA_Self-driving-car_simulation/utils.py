@@ -4,6 +4,9 @@ import numpy as np              # for..
 import os                       # to deal with path joining
 import matplotlib.pyplot as plt  # for visualization while balancing the data
 from sklearn.utils import shuffle
+# ~ Why not cv2? it reads img in BGR, this in RGB. that's it.
+import matplotlib.image as mpimg
+from imgaug import augmenters as iaa    # for image augmentations
 
 """ Utility functions"""
 
@@ -134,3 +137,24 @@ def loadData(path, data):
 
     # return the final values..
     return imgPaths, steeringAngles
+
+
+def augmentImage(img_path, steeringAngle):
+    """
+    @param img_path: path of the image to be augmented.
+    @param steeringAngle: respective steering angle noted. 
+        Why this is needed? when flipped horizontally, directions too gets flipped. So to handle that.
+    """
+    img = mpimg.imread(
+        img_path)        # load the image, on which augmentation has to be done.
+    # Start augmentation on the loaded image.
+    # PANNING - move the image left-right, up-down.. of some %. !! Does randomly
+    panner = iaa.Affine(translate_percent={
+                        'x': (-0.1, +0.1), 'y': (-0.1, +0.1)})
+    panned_img = panner.augment_image(img)
+
+    plt.imshow(panned_img)
+    plt.show()
+
+
+augmentImage('test.jpg', 0.5)
