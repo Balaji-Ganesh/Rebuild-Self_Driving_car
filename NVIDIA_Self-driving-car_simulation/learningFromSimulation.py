@@ -1,3 +1,8 @@
+#####
+print("Setting up.... ...")
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+##### -- this .. when using GPU, as with GPU run, it generates lot of warnings.
 import utils
 from sklearn.model_selection import train_test_split
 
@@ -28,3 +33,8 @@ print("Test set size: ", len(xTest))
 ## Neeed:
 
 # STEP-7: Batch Generator
+
+# STEP-8: Model creation
+# Going to use the same model used and tested by NVIDIA.
+model = utils.modelCreator()
+model.summary()

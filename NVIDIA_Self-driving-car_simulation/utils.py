@@ -12,6 +12,11 @@ import cv2                              # used in image aug. for flipping.
 # used for batch generator, to pick random images.
 import random
 
+# For model building
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Convolution2D, Flatten, Dense
+from tensorflow.keras.optimizers import Adam
+
 """ Utility functions"""
 
 
@@ -232,6 +237,31 @@ def batchGenerator(imagesPath, steeringAngles, batch_size, is_for_training=True)
         yield (np.asarray(imagesBatch), np.asarray(steeringAnglesBatch))
 
 
-img = preprocess_img(mpimg.imread('test.jpg'))
-plt.imshow(img)
-plt.show()
+def modelCreator():
+    """
+        Take the ref. of NVIDIA model for clear understanding
+    """
+    model = Sequential()
+
+    model.add(Convolution2D(24, (5, 5), (2, 2),
+              input_shape=(66, 200, 3), activation='elu'))
+    model.add(Convolution2D(36, (5, 5), (2, 2),
+              input_shape=(66, 200, 3), activation='elu'))
+    model.add(Convolution2D(48, (5, 5), (2, 2),
+              input_shape=(66, 200, 3), activation='elu'))
+    model.add(Convolution2D(64, (3, 3), (1, 1),
+              input_shape=(66, 200, 3), activation='elu'))
+    model.add(Convolution2D(64, (3, 3), (1, 1),
+              input_shape=(66, 200, 3), activation='elu'))
+
+    model.add(Flatten())
+    model.add(Dense(100, activation='elu'))
+    model.add(Dense(50, activation='elu'))
+    model.add(Dense(10, activation='elu'))
+    model.add(Dense(1))  # Final single neuron.
+
+    # as this is continous valued problem - i.e., regression, using MSE
+    model.compile(Adam(learning_rate=0.0001), loss='mse')
+
+    # finall, return the model created.
+    return model
