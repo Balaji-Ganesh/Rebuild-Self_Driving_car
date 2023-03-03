@@ -153,7 +153,10 @@ def augmentImage(img_path, steeringAngle):
                         'x': (-0.1, +0.1), 'y': (-0.1, +0.1)})
     panned_img = panner.augment_image(img)
 
-    plt.imshow(panned_img)
+    # ZOOMING
+    zoomer = iaa.Affine(scale=(1, 1.5))
+    zoomed_img = zoomer.augment_image(img)
+    plt.imshow(zoomed_img)
     plt.show()
 
 
