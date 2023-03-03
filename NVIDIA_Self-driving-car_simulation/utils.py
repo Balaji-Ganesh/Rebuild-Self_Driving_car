@@ -1,6 +1,7 @@
 #  Importing required libraries..
 import pandas as pd             # to deal with CSV files
-import numpy as np              # for..
+# for better generalization with use of random values - at augmentation.
+import numpy as np
 import os                       # to deal with path joining
 import matplotlib.pyplot as plt  # for visualization while balancing the data
 from sklearn.utils import shuffle
@@ -150,25 +151,32 @@ def augmentImage(img_path, steeringAngle):
         img_path)        # load the image, on which augmentation has to be done.
     # Start augmentation on the loaded image.
     # PANNING - move the image left-right, up-down.. of some %. !! Does randomly
-    panner = iaa.Affine(translate_percent={
-                        'x': (-0.1, +0.1), 'y': (-0.1, +0.1)})
-    panned_img = panner.augment_image(img)
+
+    # Use of random value: take a coin toss, before each operation
+    if np.random.rand() < 0.5:
+        panner = iaa.Affine(translate_percent={
+                            'x': (-0.1, +0.1), 'y': (-0.1, +0.1)})
+        img = panner.augment_image(img)
 
     # ZOOMING
-    zoomer = iaa.Affine(scale=(1, 1.5))
-    zoomed_img = zoomer.augment_image(img)
+    if np.random.rand() < 0.5:
+        zoomer = iaa.Affine(scale=(1, 1.5))
+        img = zoomer.augment_image(img)
 
     # CHANGING BRIGHTNESS -- [0, +1] -> [dark, bright]
-    brightness_changer = iaa.Multiply((0.5, 1.2))
-    brightness_chng_img = brightness_changer.augment_image(img)
+    if np.random.rand() < 0.5:
+        brightness_changer = iaa.Multiply((0.5, 1.2))
+        img = brightness_changer.augment_image(img)
 
     # FLIPPING - here need ONLY horizontal flip
-    flipped_img = cv2.flip(img, 1)
-    # as direction gets flipped, flip the signs to reflect that.
-    steeringAngle = -steeringAngle
+    if np.random.rand() < 0.5:
+        img = cv2.flip(img, 1)
+        # as direction gets flipped, flip the signs to reflect that.
+        steeringAngle = -steeringAngle
 
-    plt.imshow(flipped_img)
-    plt.show()
+    return img, steeringAngle
 
 
-augmentImage('test.jpg', 0.5)
+img, angle = augmentImage('test.jpg', 0.5)
+plt.imshow(img)
+plt.show()
