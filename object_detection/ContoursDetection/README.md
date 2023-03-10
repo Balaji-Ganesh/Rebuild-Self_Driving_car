@@ -6,3 +6,10 @@
     
 : Update after experiment..
 - it appears, that, this is very susceptible to the light conditions and need tweaking of parameters based on light conditions -- which is infeasible at real-time.
+
+: One more update..
+    - This time, traffic lights are being detected.
+    - The catch is.. detecting, when any one of the light is glowing. 
+        Previously trying on traffic lights (all lights OFF state).
+        Guess, they haven't trained over traffic lights in off state.
+    
