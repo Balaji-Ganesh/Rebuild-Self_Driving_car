@@ -29,7 +29,7 @@ def detectObjects(img, min_thresh=0.45, nms_thresh=0.2, draw_info=True, detectab
         
         # Overlay the prediction on the image..
         for classId, confidence, bbox in zip(classIds, confidences, bounding_boxes):
-            detected_class = classes[classId-1]
+            detected_class = classes[int(classId)-1] # give as ..[class]
             # Detect only the objects to be detected, not all, on which the model is trained
             if detected_class in detectable_classes:    
                 detection_info.append((detected_class, bbox))
@@ -44,7 +44,9 @@ def detectObjects(img, min_thresh=0.45, nms_thresh=0.2, draw_info=True, detectab
 if __name__ == '__main__':
     # img = cv2.imread('lena.jpg')    # to work on saved image
     capture = cv2.VideoCapture(0)   # to work on real-time feed.
-
+    # Set width and height of capturing..
+    capture.set(3, 320)
+    capture.set(4, 240)  # low frame size for faster computation.
     while True:
         _, img = capture.read()     # read the frames from camera
         img, detection_info = detectObjects(img, detectable_classes=['stop sign', 'traffic light', 'car', 'truck']) # !! Make sure that, classes names match with `labels.txt`
