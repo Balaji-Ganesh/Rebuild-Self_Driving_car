@@ -9,3 +9,6 @@
 - This model was tried for the purpose - whether this **can detect traffic lights or not**.
     - There is traffic light class [class_10], but it isn't detecting.
     - May be need to have custom trained model.
+
+### an update on 10th March, 2023 - Fri
+- This model successfully detecting "Stop signs".
