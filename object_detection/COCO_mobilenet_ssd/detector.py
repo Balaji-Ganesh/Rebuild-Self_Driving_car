@@ -53,4 +53,7 @@ if __name__ == '__main__':
         print(detection_info)
         # Display output
         cv2.imshow('Output', img)
-        cv2.waitKey(1)
+        if cv2.waitKey(1) & 0xFF == 27:
+            break
+    capture.release()
+    cv2.destroyAllWindows()
