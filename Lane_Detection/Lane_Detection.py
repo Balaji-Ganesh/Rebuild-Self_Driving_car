@@ -76,7 +76,7 @@ def get_lane_curve(image, debug_mode=False):
     optimized_curve_val = int(sum(curvature_stack_list) / len(curvature_stack_list))
 
 
-    """STEP-5: Displaying the Calculations performed on the images"""
+    """STEP-5: Displaying the Calculations performed on the query"""
     if debug_mode:  # Shows the entire work_flow..
         '''Show the flow-1: #Step_1 - Filtering the image'''
         masked_original = cv2.bitwise_and(src1=image, src2=image, mask=threshImg)  # Merge the thresholded and Original image, so that we'll get only the lane which we required.
@@ -115,7 +115,7 @@ def get_lane_curve(image, debug_mode=False):
         # curve_mid_avgPts = cv2.circle(curve_mid_avgPts, center=(avg_curvature_point, curve_mid_avgPts.shape[0]), radius=10, color=(255, 0, 0), thickness=cv2.FILLED)
 
 
-        # Concat all the images..
+        # Concat all the query..
         concat_img = utils.display_concatenated_results(images=[[image.copy(), threshImg, masked_original],         # Flow of #STEP-1
                                                                 [warp_img, histogram_img, masked_warp],             # Flow of #STEP-2
                                                                 [curve_midPt, curve_avgPt, curve_mid_avgPts],       # Flow of #STEP_3
@@ -125,7 +125,7 @@ def get_lane_curve(image, debug_mode=False):
                                                                      ["Curve Mid point", "Curvature Avg Center", "Curve's Mid & Avg Pts"],
                                                                      ["Detected Road (on Thresh)", "Detected Road (Original)", "Optimized(Avg) Steering Angle"]],
                                                         scaleFactor=0.7)
-        cv2.imshow('Workflow {Concatenated images} "Each row denotes Each STEP"', concat_img)
+        cv2.imshow('Workflow {Concatenated query} "Each row denotes Each STEP"', concat_img)
 
     # shows the result on the template frame
     utils.design_template(image, optimized_curve_val)
