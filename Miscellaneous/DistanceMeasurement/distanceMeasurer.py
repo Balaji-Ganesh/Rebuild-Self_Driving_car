@@ -42,7 +42,7 @@ def object_width_finder(frame, minObjectAreaThresh=900):
 
     return obj_width_px
 
-def distance_finder(focal_length, object_offset, obj_width_in_frame) :
+def distance_finder(focal_length, object_width_in_real, obj_width_in_frame) :
     """
     Infers the distance of the object from the camera
     :param focal_length: calculated focal length
@@ -50,7 +50,7 @@ def distance_finder(focal_length, object_offset, obj_width_in_frame) :
     :param obj_width_in_frame: calculated width of object (dynamic)
     :return: inferred distance
     """
-    distance_in_cm = (object_offset * focal_length) / obj_width_in_frame
+    distance_in_cm = (object_width_in_real * focal_length) / obj_width_in_frame
     return distance_in_cm
 
 if __name__ == '__main__':
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         # Infer the object's distance
         obj_width_in_px_calc = object_width_finder(frame)    # Find the object's width in the frame
         if obj_width_in_px_calc != 0:
-            object_distance_inf = distance_finder(focal_length, object_offset=obj_offset_in_cm,
+            object_distance_inf = distance_finder(focal_length, object_width_in_real=obj_width_in_cm,
                                                   obj_width_in_frame=obj_width_in_px_calc)
             cv2.putText(frame, text=f"Inferred object's distance: {object_distance_inf}cm\n"
                                     f" object's width: {obj_width_in_px_calc}px", org=(10, 40),
@@ -91,6 +91,7 @@ if __name__ == '__main__':
 
 """
 Ref: https://youtu.be/dBOqzLRgjtY
+Correction to the bug got possible, by revisiting the basic concept from: https://youtu.be/Qm7vunJAtKY
 Result:
-Not getting proper result
+Now working fairly accurate.
 """
