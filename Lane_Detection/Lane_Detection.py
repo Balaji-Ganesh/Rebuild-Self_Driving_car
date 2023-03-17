@@ -4,7 +4,7 @@ import utils
 import numpy as np
 
 ################################################################### GLOBAL VALUES ###########################################################
-width, height = (480, 240)      # Dimensions of the window, (Currently adjusted according to the RPi camera)
+width, height = (320, 240)      # Dimensions of the window, (Currently adjusted according to the RPi camera)
 window_dim = (width, height)
 curvature_stack_avg_limit = 10  # What should be the length of the stack to store the elements..!! used in #STEP-4, it makes a impact on deciding the center correctly..(Please make sure that, this value is adjusted properly..else center cannot be detected properly.)
 curvature_stack_list = []       # A list implemented to be like stack(FIFO), in which the elements(raw_curvature_val) are PUSHed upto the value set in "curvature_stack_avg_limit"(i.e., size of stack is this). The element which is PUSHed earlier is POPped out first(i.,e earlier raw_curvature_value is deleted, that means our stack will hold a set of previous finite values (as set in curvatur_stack_avg_limit) from current.)  Avg of this stack values is considered to be the approximated center.
@@ -139,7 +139,9 @@ def start_detecting_lanes(debug_mode=False):
     :return: nothing.
     """
 
-    capture = cv2.VideoCapture("road_car_view.mp4")      # Get the camera capture instance..
+    # capture = cv2.VideoCapture("model_car/road_video_at_11h52m20s_forward_route.avi")      # Get the camera capture instance..
+    # Get the camera capture instance..
+    capture = cv2.VideoCapture("road_car_view.mp4")
     frame_counter = 0
     while True:
         frame_counter += 1
@@ -165,4 +167,4 @@ def start_detecting_lanes(debug_mode=False):
 
 
 if __name__ == '__main__':
-    start_detecting_lanes(debug_mode=False)
+    start_detecting_lanes(debug_mode=True)
