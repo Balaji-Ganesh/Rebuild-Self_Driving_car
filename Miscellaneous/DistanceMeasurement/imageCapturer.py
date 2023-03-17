@@ -4,7 +4,7 @@ import numpy as np
 if __name__ == '__main__':
     capture = cv2.VideoCapture(0)
     capture.set(3, 640)
-    capture.set(3, 480)
+    capture.set(4, 480)
 
     while True:
         _, frame = capture.read()
